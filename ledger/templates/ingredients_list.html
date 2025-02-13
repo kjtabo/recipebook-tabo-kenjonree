@@ -2,9 +2,9 @@
 {% block title %}{{ name }}{% endblock %}
 {% block content %}
     Here are the ingredients for {{ name }}:
+    <ul>
     {% for item in ingredients %}
-        <ul>
-            <li>{{ item.quantity }} of {{ item.name }}</li>
-        </ul>
+        <li>{{ item.quantity }} of {{ item.name }}</li>
     {% endfor %}
+    </ul>
 {% endblock %}
