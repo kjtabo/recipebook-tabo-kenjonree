@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def index(request):
-    return HttpResponse("Home Page")
+    return HttpResponse()
 
 def recipe_list(request):
     ctx = {
@@ -71,7 +71,7 @@ def recipe_list(request):
             }
         ]
     }
-    return render(request, 'list.html', ctx)
+    return render(request, 'recipes_list.html', ctx)
 
 def recipe_1(request):
     ctx = {
@@ -100,7 +100,7 @@ def recipe_1(request):
         ],
         "link": "/recipe/1"
     }
-    return render(request, 'recipe_1.html', ctx)
+    return render(request, 'ingredients_list.html', ctx)
 
 def recipe_2(request):
     ctx = {
@@ -137,4 +137,4 @@ def recipe_2(request):
         ],
         "link": "/recipe/2"
     }
-    return render(request, 'recipe_2.html', ctx)
+    return render(request, 'ingredients_list.html', ctx)
