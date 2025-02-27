@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% block title %}{{ name }}{% endblock %}
+{% block title %}{{ object.name }}{% endblock %}
 {% block content %}
-    Here are the ingredients for {{ object }}:
+    Here are the ingredients for {{ object.name }}:
     <ul>
     {% for ingredient in object.ingredients.all %}
         <li>{{ ingredient.quantity }} {{ ingredient.ingredient.name }}</li>
