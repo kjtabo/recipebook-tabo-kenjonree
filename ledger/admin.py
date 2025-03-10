@@ -1,5 +1,17 @@
 from django.contrib import admin
-from .models import Recipe, Ingredient, RecipeIngredient
+from .models import Recipe, Ingredient, RecipeIngredient, Profile
+
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+
+
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+
+
+class UserAdmin(BaseUserAdmin):
+    inlines = [ProfileInline,]
 
 
 class RecipeIngredientInline(admin.TabularInline):
@@ -11,10 +23,11 @@ class RecipeIngredientInline(admin.TabularInline):
 class RecipeAdmin(admin.ModelAdmin):
     model = Recipe
     inlines = [RecipeIngredientInline,]
+    list_display = ("name", "created_on", "updated_on")
     fieldsets = (
         ("Recipe Information", {
             "fields": (
-                "name",
+                "name", "author",
             ),
         }),
     )
@@ -30,6 +43,9 @@ class IngredientAdmin(admin.ModelAdmin):
         }),
     )
 
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
 
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
