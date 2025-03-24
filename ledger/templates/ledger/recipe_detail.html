@@ -9,7 +9,7 @@
         <li>{{ ingredient.quantity }} {{ ingredient.ingredient.name }}</li>
     {% endfor %}
     </ul>
-    <a href="../recipe/{{ pk }}/add_image">Add image</a>
+    <a href="../recipe/{{ pk }}/add_image">Add image</a> <br>
     {% for image in object.images.all %}
         <img src="{{ image.image.url }}" alt="{{ image.description }}">
     {% endfor %}
