@@ -3,13 +3,18 @@
 {% block content %}
     <h3>{{ object.name }}</h3>
     <p>Recipe by {{ object.author.name }}</p>
+    <p>Created on: {{ object.created_on }}</p>
+    <p>Updated on: {{ object.updated_on }}</p>
     <p>Here are the ingredients for {{ object.name }}:</p>
+
     <ul>
     {% for ingredient in object.ingredients.all %}
         <li>{{ ingredient.quantity }} {{ ingredient.ingredient.name }}</li>
     {% endfor %}
     </ul>
-    <a href="../recipe/{{ pk }}/add_image">Add image</a> <br>
+
+    <a href="{% url 'ledger:recipe_add_image' pk %}">Add image</a> <br>
+
     {% for image in object.images.all %}
         <img src="{{ image.image.url }}" alt="{{ image.description }}">
     {% endfor %}

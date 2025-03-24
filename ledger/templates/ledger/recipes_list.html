@@ -2,7 +2,7 @@
 {% block title %}Recipe List{% endblock %}
 {% block content %}
     <h3>List of recipes</h3>
-    <a href="../recipe/add">Add a Recipe</a>
+    <a href="{% url 'ledger:recipe_add' %}">Add a Recipe</a>
 
     <ul>
     {% for recipe in object_list %}
