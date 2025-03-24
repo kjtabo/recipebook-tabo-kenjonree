@@ -53,7 +53,7 @@ class RecipeImage(models.Model):
         upload_to="images/"
     )
     description = models.CharField(max_length=255)
-    recipe_image = models.ForeignKey(
+    recipe = models.ForeignKey(
         Recipe,
         on_delete=models.SET_NULL,
         null=True,

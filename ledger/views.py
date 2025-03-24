@@ -1,21 +1,34 @@
+from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Recipe
-from .forms import RecipeForm
+from .models import Recipe, RecipeImage
+from .forms import RecipeForm, RecipeImageForm
 
 
-class RecipeCreateView(CreateView):
+class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = Recipe
     form_class = RecipeForm
-    template_name = "ledger/recipe_create.html"
+    template_name = "ledger/recipe_add_new.html"
 
 
-class RecipeUpdateView(UpdateView):
-    model = Recipe
-    form_class = RecipeForm
-    template_name = "ledger/recipe_detail.html"
+class RecipeUpdateView(CreateView):
+    model = RecipeImage
+    form_class = RecipeImageForm
+    # fields = ["image", "description",]
+    template_name = "ledger/recipe_add_image.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(RecipeUpdateView, self).get_context_data(**kwargs)
+        ctx["pk"] = self.kwargs["pk"]
+        return ctx
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "ledger:recipe_detail",
+            kwargs={"pk": self.kwargs["pk"]}
+        )
 
 
 class RecipeListView(ListView):
@@ -26,3 +39,8 @@ class RecipeListView(ListView):
 class RecipeDetailView(LoginRequiredMixin, DetailView):
     model = Recipe
     template_name = "ledger/recipe_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(RecipeDetailView, self).get_context_data(**kwargs)
+        ctx["pk"] = self.kwargs["pk"]
+        return ctx
