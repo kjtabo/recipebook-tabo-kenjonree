@@ -9,4 +9,7 @@
         <li>{{ ingredient.quantity }} {{ ingredient.ingredient.name }}</li>
     {% endfor %}
     </ul>
+    {% for image in object.images.all %}
+        <img src="{{ image.image.url }}" alt="{{ image.description }}">
+    {% endfor %}
 {% endblock %}

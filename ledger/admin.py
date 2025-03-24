@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Recipe, Ingredient, RecipeIngredient
+from .models import Recipe, Ingredient, RecipeIngredient, RecipeImage
 
 
 class RecipeIngredientInline(admin.TabularInline):
@@ -8,9 +8,15 @@ class RecipeIngredientInline(admin.TabularInline):
     verbose_name_plural = "Recipe Ingredients"
 
 
+class RecipeImageInline(admin.TabularInline):
+    model = RecipeImage
+    verbose_name = "Recipe Image"
+    verbose_name_plural = "Recipe Images"
+
+
 class RecipeAdmin(admin.ModelAdmin):
     model = Recipe
-    inlines = [RecipeIngredientInline,]
+    inlines = [RecipeIngredientInline, RecipeImageInline,]
     list_display = ("name", "created_on", "updated_on")
     fieldsets = (
         ("Recipe Information", {
