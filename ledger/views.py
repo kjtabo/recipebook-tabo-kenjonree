@@ -13,18 +13,13 @@ from .forms import RecipeForm, RecipeImageForm
 class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = Recipe
     form_class = RecipeForm
-    template_name = "ledger/recipe_add.html"
-
-    def get_context_data(self, **kwargs):
-        ctx = super(RecipeCreateView, self).get_context_data(**kwargs)
-        ctx["window"] = "Add a recipe"
-        return ctx
+    template_name = "ledger/recipe_add_new.html"
 
 
 class RecipeImageCreateView(CreateView):
     model = RecipeImage
     form_class = RecipeImageForm
-    template_name = "ledger/recipe_add.html"
+    template_name = "ledger/recipe_add_image.html"
 
     def form_valid(self, form):
         form.instance.recipe = Recipe.objects.get(pk=self.kwargs["pk"])
@@ -32,7 +27,7 @@ class RecipeImageCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(RecipeImageCreateView, self).get_context_data(**kwargs)
-        ctx["window"] = "Add an image"
+        ctx["pk"] = self.kwargs["pk"]
         return ctx
 
     def get_success_url(self):
