@@ -2,6 +2,7 @@
 {% block title %}{{ object.name }}{% endblock %}
 {% block content %}
     <h3>{{ object.name }}</h3>
+    <a href="{% url 'ledger:recipe_list' %}">Back to Recipe List</a>
     <p>Recipe by {{ object.author.name }}</p>
     <p>Created on: {{ object.created_on }}</p>
     <p>Updated on: {{ object.updated_on }}</p>
